@@ -11,7 +11,7 @@
 	<groupId>com.cbfacademy</groupId>
 	<artifactId>springbootexercise</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Spring Boot Exercise</name>
+	<name>Java API Assessment</name>
 	<description>Build a RESTful API using Spring Boot</description>
 	<url/>
 	<licenses>
