@@ -1,4 +1,4 @@
-package com.entrepreneurfunding.funding;
+package com.fundingproject.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+
+import com.fundingproject.entity.FundingOpportunity;
+import com.fundingproject.repository.FundingOpportunityRepository;
 
 @Service
 public class FundingOpportunityService {
