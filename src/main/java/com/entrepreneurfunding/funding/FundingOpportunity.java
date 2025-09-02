@@ -7,29 +7,52 @@ import java.util.UUID;
 import com.entrepreneurfunding.funding.enums.FundingStatus;
 import com.entrepreneurfunding.funding.enums.IndustryFocus;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "funding_opportunities")
 
-
 public class FundingOpportunity {
-  @Id
   @GeneratedValue
-  
+
+  @Id
+  @Column(columnDefinition = "CHAR(36)")
   private UUID id;
+
   private String provider;
+
+  @Enumerated(EnumType.STRING)
   private IndustryFocus industryFocus;
+
   private BigDecimal minimumAmount;
   private BigDecimal maximumAmount;
   private Instant updatedAt;
+
+  @PrePersist
+  protected void onCreate() {
+    this.updatedAt = Instant.now();
+  }
+
+  @PreUpdate
+  protected void onUpdate() {
+    this.updatedAt = Instant.now();
+  }
+
+  @Enumerated(EnumType.STRING)
   private FundingStatus fundingStatus;
 
   // Define a constructor and default values
-  public FundingOpportunity(String provider, IndustryFocus industryFocus, BigDecimal minimumAmount, BigDecimal maximumAmount, Instant updatedAt, FundingStatus fundingStatus) {
+  public FundingOpportunity(UUID id, String provider, IndustryFocus industryFocus, BigDecimal minimumAmount,
+      BigDecimal maximumAmount, Instant updatedAt, FundingStatus fundingStatus) {
+    this.id = UUID.randomUUID();
     this.provider = provider;
     this.industryFocus = industryFocus;
     this.minimumAmount = minimumAmount;
@@ -40,6 +63,7 @@ public class FundingOpportunity {
 
   public FundingOpportunity() {
     this(
+        UUID.randomUUID(),
         "Unknown", // provider
         IndustryFocus.OTHER, // industry focus
         BigDecimal.ZERO, // minimumAmount
@@ -48,8 +72,8 @@ public class FundingOpportunity {
         FundingStatus.PENDING // default status
     );
   }
-  
-  // Create getter and setter methods for each field, except id, which should only have a getter
+
+  // Create getter and setter methods for each field, except id and updatedAt which only have getters
   public UUID getId() {
     return id;
   }
@@ -70,34 +94,29 @@ public class FundingOpportunity {
     this.industryFocus = industryFocus;
   }
 
-  // get maximum amount 
   public BigDecimal getMaximumAmount() {
     return maximumAmount;
   }
 
-  // set maximum amount 
   public void setMaximumAmount(BigDecimal maximumAmount) {
     this.maximumAmount = maximumAmount;
   }
-  
-  // get minimumim amount 
+
   public BigDecimal getMinimumAmount() {
     return minimumAmount;
   }
 
-  // set minimumim amount 
   public void setMinimumAmount(BigDecimal minimumAmount) {
     this.minimumAmount = minimumAmount;
   }
 
-  // Updated at should be updated whever there is a change to the table, dont know how to do this? 
+  public Instant getUpdatedAt() {
+    return updatedAt;
+  }
 
-
-  // get status 
   public FundingStatus getFundingStatus() {
     return fundingStatus;
   }
-  // if status is not declared, return the default PENDING
 
   public void setFundingStatus(FundingStatus fundingStatus) {
     this.fundingStatus = fundingStatus;
