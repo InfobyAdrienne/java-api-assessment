@@ -1,4 +1,4 @@
-package com.fundingproject.entity;
+package com.fundingproject.funding.entity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -21,10 +21,9 @@ import jakarta.persistence.Table;
 @Table(name = "funding_opportunities")
 
 public class FundingOpportunity {
-  @GeneratedValue
-
   @Id
-  @Column(columnDefinition = "CHAR(36)")
+  @GeneratedValue
+  @Column(columnDefinition = "BINARY(16)")
   private UUID id;
 
   private String provider;
@@ -50,9 +49,8 @@ public class FundingOpportunity {
   private FundingStatus fundingStatus;
 
   // Define a constructor and default values
-  public FundingOpportunity(UUID id, String provider, IndustryFocus industryFocus, BigDecimal minimumAmount,
+  public FundingOpportunity(String provider, IndustryFocus industryFocus, BigDecimal minimumAmount,
       BigDecimal maximumAmount, Instant updatedAt, FundingStatus fundingStatus) {
-    this.id = UUID.randomUUID();
     this.provider = provider;
     this.industryFocus = industryFocus;
     this.minimumAmount = minimumAmount;
@@ -63,7 +61,6 @@ public class FundingOpportunity {
 
   public FundingOpportunity() {
     this(
-        UUID.randomUUID(),
         "Unknown", // provider
         IndustryFocus.OTHER, // industry focus
         BigDecimal.ZERO, // minimumAmount
@@ -73,7 +70,8 @@ public class FundingOpportunity {
     );
   }
 
-  // Create getter and setter methods for each field, except id and updatedAt which only have getters
+  // Create getter and setter methods for each field, except id and updatedAt
+  // which only have getters
   public UUID getId() {
     return id;
   }

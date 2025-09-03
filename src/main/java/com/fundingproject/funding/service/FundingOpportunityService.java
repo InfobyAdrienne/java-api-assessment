@@ -1,4 +1,4 @@
-package com.fundingproject.service;
+package com.fundingproject.funding.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
-import com.fundingproject.entity.FundingOpportunity;
-import com.fundingproject.repository.FundingOpportunityRepository;
+import com.fundingproject.funding.entity.FundingOpportunity;
+import com.fundingproject.funding.repository.FundingOpportunityRepository;
 
 @Service
 public class FundingOpportunityService {
@@ -23,10 +23,11 @@ public class FundingOpportunityService {
     return fundingOpportunityRepository.findAll();
   }
 
-  public FundingOpportunity getFundingOpportiny(UUID id) throws NoSuchElementException {
-    return fundingOpportunityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Funding opportunity not found - check id"));
+  public FundingOpportunity getFundingOpportunityById(UUID id) throws NoSuchElementException {
+    return fundingOpportunityRepository.findById(id)
+        .orElseThrow(() -> new NoSuchElementException("Funding opportunity not found - check id"));
   }
-  
+
   public FundingOpportunity createFundingOpportunity(FundingOpportunity fundingOpportunity)
       throws IllegalArgumentException, OptimisticLockingFailureException {
     if (fundingOpportunity == null) {
@@ -34,7 +35,7 @@ public class FundingOpportunityService {
     }
     return fundingOpportunityRepository.save(fundingOpportunity);
   }
-  
+
   public FundingOpportunity updateFundingOpportunity(UUID id, FundingOpportunity updatedFundingOpportunity)
       throws NoSuchElementException {
     if (updatedFundingOpportunity == null) {
@@ -42,10 +43,10 @@ public class FundingOpportunityService {
     }
 
     // Check if the opportunity exists exists
-    FundingOpportunity existingFundingOpportunity = getFundingOpportiny(id);
+    FundingOpportunity existingFundingOpportunity = getFundingOpportunityById(id);
 
     // Update the fields
-    // We do not want to update the id or updatedAt fields 
+    // We do not want to update the id or updatedAt fields
     existingFundingOpportunity.setProvider(updatedFundingOpportunity.getProvider());
     existingFundingOpportunity.setIndustryFocus(updatedFundingOpportunity.getIndustryFocus());
     existingFundingOpportunity.setMinimumAmount(updatedFundingOpportunity.getMinimumAmount());
@@ -54,7 +55,7 @@ public class FundingOpportunityService {
 
     return fundingOpportunityRepository.save(existingFundingOpportunity);
   }
-  
+
   public void deleteFundingOpportunity(UUID id) {
     fundingOpportunityRepository.deleteById(id);
   }
