@@ -8,6 +8,7 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import com.fundingproject.funding.entity.FundingOpportunity;
+import com.fundingproject.funding.enums.FundingStatus;
 import com.fundingproject.funding.repository.FundingOpportunityRepository;
 
 @Service
@@ -58,5 +59,9 @@ public class FundingOpportunityService {
 
   public void deleteFundingOpportunity(UUID id) {
     fundingOpportunityRepository.deleteById(id);
+  }
+
+  public List<FundingOpportunity> getByFundingStatus(FundingStatus fundingStatus) {
+    return fundingOpportunityRepository.findByFundingStatus(fundingStatus);
   }
 }
