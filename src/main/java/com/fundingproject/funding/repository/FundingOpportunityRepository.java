@@ -1,8 +1,8 @@
-package com.fundingproject.repository;
+package com.fundingproject.funding.repository;
 
 import org.springframework.data.repository.ListCrudRepository;
 
-import com.fundingproject.entity.FundingOpportunity;
+import com.fundingproject.funding.entity.FundingOpportunity;
 
 import java.util.UUID;
 
