@@ -19,15 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
 @RestController
 @RequestMapping("/api")
 
 public class FundingOpportunityController {
-  
+
   private final FundingOpportunityService fundingOpportunityService;
 
   FundingOpportunityController(FundingOpportunityService fundingOpportunityService) {
@@ -40,7 +36,7 @@ public class FundingOpportunityController {
     return fundingOpportunityService.getAllFundingOpportunities();
   }
 
-  // Get an opportunity by an ID 
+  // Get an opportunity by an ID
   @GetMapping("/funding/{id}")
   public ResponseEntity<FundingOpportunity> getFundingOpportunityById(@PathVariable UUID id) {
     try {
@@ -66,7 +62,8 @@ public class FundingOpportunityController {
   public ResponseEntity<FundingOpportunity> updateFundingOpportunity(
       @PathVariable UUID id, @RequestBody FundingOpportunity fundingOpportunity) {
     try {
-      FundingOpportunity updatedOpportunity = fundingOpportunityService.updateFundingOpportunity(id, fundingOpportunity);
+      FundingOpportunity updatedOpportunity = fundingOpportunityService.updateFundingOpportunity(id,
+          fundingOpportunity);
       return ResponseEntity.ok(updatedOpportunity);
     } catch (NoSuchElementException e) {
       return ResponseEntity.notFound().build();
@@ -78,6 +75,4 @@ public class FundingOpportunityController {
     fundingOpportunityService.deleteFundingOpportunity(id);
     return ResponseEntity.noContent().build();
   }
-
-
 }

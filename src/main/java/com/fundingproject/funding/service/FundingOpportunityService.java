@@ -24,9 +24,10 @@ public class FundingOpportunityService {
   }
 
   public FundingOpportunity getFundingOpportunityById(UUID id) throws NoSuchElementException {
-    return fundingOpportunityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Funding opportunity not found - check id"));
+    return fundingOpportunityRepository.findById(id)
+        .orElseThrow(() -> new NoSuchElementException("Funding opportunity not found - check id"));
   }
-  
+
   public FundingOpportunity createFundingOpportunity(FundingOpportunity fundingOpportunity)
       throws IllegalArgumentException, OptimisticLockingFailureException {
     if (fundingOpportunity == null) {
@@ -34,7 +35,7 @@ public class FundingOpportunityService {
     }
     return fundingOpportunityRepository.save(fundingOpportunity);
   }
-  
+
   public FundingOpportunity updateFundingOpportunity(UUID id, FundingOpportunity updatedFundingOpportunity)
       throws NoSuchElementException {
     if (updatedFundingOpportunity == null) {
@@ -45,7 +46,7 @@ public class FundingOpportunityService {
     FundingOpportunity existingFundingOpportunity = getFundingOpportunityById(id);
 
     // Update the fields
-    // We do not want to update the id or updatedAt fields 
+    // We do not want to update the id or updatedAt fields
     existingFundingOpportunity.setProvider(updatedFundingOpportunity.getProvider());
     existingFundingOpportunity.setIndustryFocus(updatedFundingOpportunity.getIndustryFocus());
     existingFundingOpportunity.setMinimumAmount(updatedFundingOpportunity.getMinimumAmount());
@@ -54,7 +55,7 @@ public class FundingOpportunityService {
 
     return fundingOpportunityRepository.save(existingFundingOpportunity);
   }
-  
+
   public void deleteFundingOpportunity(UUID id) {
     fundingOpportunityRepository.deleteById(id);
   }
