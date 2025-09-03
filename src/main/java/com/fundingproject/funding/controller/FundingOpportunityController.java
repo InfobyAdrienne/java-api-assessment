@@ -1,9 +1,11 @@
 package com.fundingproject.funding.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fundingproject.funding.entity.FundingOpportunity;
+import com.fundingproject.funding.enums.FundingStatus;
 import com.fundingproject.funding.service.FundingOpportunityService;
 
 import java.util.List;
@@ -74,4 +76,10 @@ public class FundingOpportunityController {
     fundingOpportunityService.deleteFundingOpportunity(id);
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/funding/status/{status}")
+    public List<FundingOpportunity> getByFundingStatus(@PathVariable String status) {
+          FundingStatus fundingStatus = FundingStatus.valueOf(status.toUpperCase());
+      return fundingOpportunityService.getByFundingStatus(fundingStatus);
+    }
 }
