@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -22,9 +21,9 @@ import jakarta.persistence.Table;
 @Table(name = "funding_opportunities")
 
 public class FundingOpportunity {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  @Column(columnDefinition = "CHAR(36)")
+  @GeneratedValue
+  @Column(columnDefinition = "BINARY(16)")
   private UUID id;
 
   private String provider;
@@ -71,7 +70,8 @@ public class FundingOpportunity {
     );
   }
 
-  // Create getter and setter methods for each field, except id and updatedAt which only have getters
+  // Create getter and setter methods for each field, except id and updatedAt
+  // which only have getters
   public UUID getId() {
     return id;
   }
