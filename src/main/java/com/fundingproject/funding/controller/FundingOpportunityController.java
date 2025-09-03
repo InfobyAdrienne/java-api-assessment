@@ -78,8 +78,8 @@ public class FundingOpportunityController {
   }
 
   @GetMapping("/funding/status/{status}")
-    public List<FundingOpportunity> getByFundingStatus(@PathVariable String status) {
-          FundingStatus fundingStatus = FundingStatus.valueOf(status.toUpperCase());
-      return fundingOpportunityService.getByFundingStatus(fundingStatus);
-    }
+  public List<FundingOpportunity> getByFundingStatus(@PathVariable String status) {
+    FundingStatus fundingStatus = FundingStatus.valueOf(status.toUpperCase());
+    return fundingOpportunityService.getByFundingStatus(fundingStatus);
+  }
 }
