@@ -1,11 +1,11 @@
-package com.entrepreneurfunding.funding;
+package com.fundingproject.entity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
-import com.entrepreneurfunding.funding.enums.FundingStatus;
-import com.entrepreneurfunding.funding.enums.IndustryFocus;
+import com.fundingproject.funding.enums.FundingStatus;
+import com.fundingproject.funding.enums.IndustryFocus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.entrepreneurfunding.funding.enums;
+package com.fundingproject.funding.enums;
 
 public enum FundingStatus {
     ACTIVE,
