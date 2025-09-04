@@ -58,8 +58,11 @@ public class FundingOpportunityService {
   }
 
   public void deleteFundingOpportunity(UUID id) {
+    if (!fundingOpportunityRepository.existsById(id)) {
+        throw new NoSuchElementException("Funding opportunity with id " + id + " not found");
+    }
     fundingOpportunityRepository.deleteById(id);
-  }
+}
 
   public List<FundingOpportunity> getByFundingStatus(FundingStatus fundingStatus) {
     return fundingOpportunityRepository.findByFundingStatus(fundingStatus);
