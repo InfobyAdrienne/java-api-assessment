@@ -21,18 +21,17 @@ public class FundingOpportunityService {
     this.fundingOpportunityRepository = fundingOpportunityRepository;
   }
 
-
   public List<FundingOpportunity> getAllFundingOpportunities() {
-        try {
-            return fundingOpportunityRepository.findAll();
-        } catch (Exception e) {
-            throw new FundingOpportunityServiceException(
-                "Error fetching funding opportunities from database", e
-            );
-        }
+    try {
+      return fundingOpportunityRepository.findAll();
+    } catch (Exception e) {
+      throw new FundingOpportunityServiceException(
+          "Error fetching funding opportunities from database", e);
     }
+  }
 
-  public FundingOpportunity getFundingOpportunityById(UUID id) throws NoSuchElementException {
+  public FundingOpportunity getFundingOpportunityById(UUID id)
+      throws NoSuchElementException {
     return fundingOpportunityRepository.findById(id)
         .orElseThrow(() -> new NoSuchElementException("Funding opportunity not found - check id"));
   }
@@ -54,8 +53,7 @@ public class FundingOpportunityService {
     // Check if the opportunity exists exists
     FundingOpportunity existingFundingOpportunity = getFundingOpportunityById(id);
 
-    // Update the fields
-    // We do not want to update the id or updatedAt fields
+    // Update the fields but do not update the id or updatedAt fields because id stays the same and updatedAt will be set automatically
     existingFundingOpportunity.setProvider(updatedFundingOpportunity.getProvider());
     existingFundingOpportunity.setIndustryFocus(updatedFundingOpportunity.getIndustryFocus());
     existingFundingOpportunity.setMinimumAmount(updatedFundingOpportunity.getMinimumAmount());
@@ -67,12 +65,19 @@ public class FundingOpportunityService {
 
   public void deleteFundingOpportunity(UUID id) {
     if (!fundingOpportunityRepository.existsById(id)) {
-        throw new NoSuchElementException("Funding opportunity with id " + id + " not found");
+      throw new NoSuchElementException("Funding opportunity with id " + id + " not found");
     }
     fundingOpportunityRepository.deleteById(id);
-}
+  }
 
   public List<FundingOpportunity> getByFundingStatus(FundingStatus fundingStatus) {
+    try {
+      if (fundingStatus == null) {
+        throw new IllegalArgumentException("Funding status cannot be null");
+      }
+    } catch (IllegalArgumentException e) {
+      throw new FundingOpportunityServiceException("Invalid funding status provided", e);
+    }
     return fundingOpportunityRepository.findByFundingStatus(fundingStatus);
   }
 }

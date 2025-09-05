@@ -23,16 +23,23 @@ import jakarta.persistence.Table;
 public class FundingOpportunity {
   @Id
   @GeneratedValue
-  @Column(columnDefinition = "BINARY(16)")
+  @Column(name = "id", columnDefinition = "BINARY(16)", nullable = false, updatable = false)
   private UUID id;
 
+  @Column(name = "provider", nullable = false, length = 255)
   private String provider;
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "industryFocus", nullable = false, length = 50)
   private IndustryFocus industryFocus;
 
+  @Column(name = "minimumAmount", nullable = false)
   private BigDecimal minimumAmount;
+
+  @Column(name = "maximumAmount", nullable = false)
   private BigDecimal maximumAmount;
+
+  @Column(name = "updatedAt", nullable = false)
   private Instant updatedAt;
 
   @PrePersist
@@ -46,6 +53,7 @@ public class FundingOpportunity {
   }
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "fundingStatus", nullable = false, length = 50)
   private FundingStatus fundingStatus;
 
   // Define a constructor and default values
@@ -76,7 +84,8 @@ public class FundingOpportunity {
     return id;
   }
 
-  // Created the setter for testing purposes. Is there a better way to do this? Had to make it public
+  // Created the setter for testing purposes. Is there a better way to do this?
+  // Had to make it public
   public void setId(UUID id) {
     this.id = id;
   }
