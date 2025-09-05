@@ -53,8 +53,7 @@ public class FundingOpportunityService {
     // Check if the opportunity exists exists
     FundingOpportunity existingFundingOpportunity = getFundingOpportunityById(id);
 
-    // Update the fields
-    // We do not want to update the id or updatedAt fields
+    // Update the fields but do not update the id or updatedAt fields because id stays the same and updatedAt will be set automatically
     existingFundingOpportunity.setProvider(updatedFundingOpportunity.getProvider());
     existingFundingOpportunity.setIndustryFocus(updatedFundingOpportunity.getIndustryFocus());
     existingFundingOpportunity.setMinimumAmount(updatedFundingOpportunity.getMinimumAmount());
