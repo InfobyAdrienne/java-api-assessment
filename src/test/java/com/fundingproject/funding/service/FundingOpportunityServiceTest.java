@@ -92,7 +92,7 @@ public class FundingOpportunityServiceTest {
         FundingStatus.INACTIVE);
     updatedData.setId(id); // ID must match the existing entity
 
-    // Mock repository behavior
+    // Mock repository behaviour
     Mockito.when(mockFundingOpportunityRepository.findById(id))
         .thenReturn(Optional.of(opportunity1));
     Mockito.when(mockFundingOpportunityRepository.save(Mockito.any(FundingOpportunity.class)))
@@ -108,7 +108,7 @@ public class FundingOpportunityServiceTest {
     assertEquals(BigDecimal.valueOf(1000), result.getMinimumAmount());
     assertEquals(BigDecimal.valueOf(500), result.getMaximumAmount());
     assertEquals(FundingStatus.INACTIVE, result.getFundingStatus());
-    assertEquals(fixedInstant, fixedInstant);
+    assertEquals(fixedInstant, fixedInstant); // for testing purposes this is fixed 
   }
 
   @Test
