@@ -124,7 +124,7 @@ public class FundingOpportunityServiceTest {
     // Verify that deleteById was called
     Mockito.verify(mockFundingOpportunityRepository).deleteById(id);
 
-    // Optional: verify that the service would now behave as if entity is gone
+    // Verify that the service would now behave as if entity is gone
     Mockito.when(mockFundingOpportunityRepository.existsById(id)).thenReturn(false);
     assertFalse(mockFundingOpportunityRepository.existsById(id));
   }
