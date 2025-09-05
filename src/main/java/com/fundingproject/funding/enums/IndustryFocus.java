@@ -6,5 +6,7 @@ public enum IndustryFocus {
     EDUCATION,
     FINANCE,
     RETAIL,
+    AGRICULTURE,
+    ENVIRONMENT,
     OTHER
 }
