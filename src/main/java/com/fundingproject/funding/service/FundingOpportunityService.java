@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fundingproject.funding.entity.FundingOpportunity;
 import com.fundingproject.funding.enums.FundingStatus;
+import com.fundingproject.funding.exception.FundingOpportunityServiceException;
 import com.fundingproject.funding.repository.FundingOpportunityRepository;
 
 @Service
@@ -20,9 +21,16 @@ public class FundingOpportunityService {
     this.fundingOpportunityRepository = fundingOpportunityRepository;
   }
 
+
   public List<FundingOpportunity> getAllFundingOpportunities() {
-    return fundingOpportunityRepository.findAll();
-  }
+        try {
+            return fundingOpportunityRepository.findAll();
+        } catch (Exception e) {
+            throw new FundingOpportunityServiceException(
+                "Error fetching funding opportunities from database", e
+            );
+        }
+    }
 
   public FundingOpportunity getFundingOpportunityById(UUID id) throws NoSuchElementException {
     return fundingOpportunityRepository.findById(id)
