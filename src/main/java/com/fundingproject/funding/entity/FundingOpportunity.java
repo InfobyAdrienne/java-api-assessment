@@ -49,12 +49,12 @@ public class FundingOpportunity {
   private FundingStatus fundingStatus;
 
   // Define a constructor and default values
-  public FundingOpportunity(String provider, IndustryFocus industryFocus, BigDecimal minimumAmount,
-      BigDecimal maximumAmount, Instant updatedAt, FundingStatus fundingStatus) {
+  public FundingOpportunity(String provider, IndustryFocus industryFocus, BigDecimal zero,
+      BigDecimal zero2, Instant updatedAt, FundingStatus fundingStatus) {
     this.provider = provider;
     this.industryFocus = industryFocus;
-    this.minimumAmount = minimumAmount;
-    this.maximumAmount = maximumAmount;
+    this.minimumAmount = zero;
+    this.maximumAmount = zero2;
     this.updatedAt = updatedAt;
     this.fundingStatus = fundingStatus;
   }
@@ -74,6 +74,11 @@ public class FundingOpportunity {
   // which only have getters
   public UUID getId() {
     return id;
+  }
+
+  // Created the setter for testing purposes. Is there a better way to do this? Had to make it public
+  public void setId(UUID id) {
+    this.id = id;
   }
 
   public String getProvider() {
