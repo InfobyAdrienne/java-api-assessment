@@ -70,13 +70,16 @@ One the repo has been cloned, follow the following steps:
 Create a `local.properties` file in the location `java-api-assessment/src/main/resources` following the template below. Update the file with the information for your local SQL database. Replace `your_db_username` with your username and `your_db_password` with your password. 
 
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/funding
+spring.datasource.url=jdbc:mysql://localhost:3306/funding_db
 
 # Replace "root" with your database user, if applicable
 spring.datasource.username=your_db_username
 
 # Specify your database user's password, if applicable. If your database user doesn't have a password set, delete the line below
 spring.datasource.password=your_db_password
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.defer-datasource-initialization=true
 ```
 
 ### Database Setup
