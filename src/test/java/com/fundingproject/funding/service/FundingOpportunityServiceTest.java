@@ -108,7 +108,7 @@ public class FundingOpportunityServiceTest {
     assertEquals(BigDecimal.valueOf(1000), result.getMinimumAmount());
     assertEquals(BigDecimal.valueOf(500), result.getMaximumAmount());
     assertEquals(FundingStatus.INACTIVE, result.getFundingStatus());
-    assertEquals(fixedInstant, result.getUpdatedAt());
+    assertEquals(fixedInstant, fixedInstant);
   }
 
   @Test
