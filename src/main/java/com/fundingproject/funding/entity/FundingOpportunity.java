@@ -30,16 +30,16 @@ public class FundingOpportunity {
   private String provider;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "industryFocus", nullable = false, length = 50)
+  @Column(name = "industry_focus", nullable = false, length = 50)
   private IndustryFocus industryFocus;
 
-  @Column(name = "minimumAmount", nullable = false)
+  @Column(name = "minimum_amount", nullable = false)
   private BigDecimal minimumAmount;
 
-  @Column(name = "maximumAmount", nullable = false)
+  @Column(name = "maximum_amount", nullable = false)
   private BigDecimal maximumAmount;
 
-  @Column(name = "updatedAt", nullable = false)
+  @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
 
   @PrePersist
@@ -53,7 +53,7 @@ public class FundingOpportunity {
   }
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "fundingStatus", nullable = false, length = 50)
+  @Column(name = "funding_status", nullable = false, length = 50)
   private FundingStatus fundingStatus;
 
   // Define a constructor and default values

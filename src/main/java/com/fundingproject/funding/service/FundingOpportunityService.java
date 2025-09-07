@@ -47,10 +47,10 @@ public class FundingOpportunityService {
   public FundingOpportunity updateFundingOpportunity(UUID id, FundingOpportunity updatedFundingOpportunity)
       throws NoSuchElementException {
     if (updatedFundingOpportunity == null) {
-      throw new IllegalArgumentException("Updated funding opportunity cannot be null");
+      throw new IllegalArgumentException("Funding opportunity cannot be null");
     }
 
-    // Check if the opportunity exists exists
+    // Check if the opportunity exists
     FundingOpportunity existingFundingOpportunity = getFundingOpportunityById(id);
 
     // Update the fields but do not update the id or updatedAt fields because id stays the same and updatedAt will be set automatically
