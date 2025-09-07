@@ -84,64 +84,52 @@ spring.jpa.defer-datasource-initialization=true
 
 ### Database Setup
 
-Make sure you are logged into your MySQL database.
+1. Create the database
 
-1. Run `schema.sql` first to create the table
-2. Run `data.sql` second to populate example records.
+Make sure you are logged into your MySQL database. Create the database `funding_db` if it doesn't exist using the following command:
+
+```sql
+CREATE DATABASE funding_db;
+```
+
+It is essential that the database goes by this exact name because the application is configured to connect to it specifically.
+
+2. Schema creation 
+
+By default, Spring Boot with JPA/Hibernate will automatically create the `funding_opportunities` table with the appropriate columns and data types based on the entity classes when the application starts.
+
+Optional: If you want to manage the schema manually, you can use the provided `schema.sql` file with the following command within sql:
+
+```
+SOURCE /path/to/schema.sql;
+```
+
+3. Insert sample data (optinal)
+
+If required running the file `data.sql` within sql will populate example records by using this command: 
+
+```sql
+SOURCE path/to/data.sql;
+```
 
 The application can now query funding opportunities immediately.
 
+4. Verify the setup
+
+After setup, you can confirm the table is set up directly and has data (if populated per above) by running this SQL query:
+
+```
+USE funding_db;
+DESCRIBE funding_opportunities;
+SELECT * FROM funding_opportunities;
+```
 
 ### Run the application
+
+Use the following command to start the application:
 
 ```./mvnw spring-boot:run```
 
 ## 🧪 Testing
 
 In order to run the unit tests, use the the `mvn test` command.
-
-## 🪜 Project Structure
-
-```
-java-api-assessment/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── fundingproject/
-│   │   │           ├── FundingProjectApplication.java
-│   │   │           └── funding/
-│   │   │               ├── controller/
-│   │   │               │   └── FundingOpportunityController.java
-│   │   │               ├── entity/
-│   │   │               │   └── FundingOpportunity.java
-│   │   │               ├── enums/
-│   │   │               │   ├── FundingStatus.java
-│   │   │               │   └── IndustryFocus.java
-│   │   │               ├── exception/
-│   │   │               │   └── FundingOpportunityServiceException.java
-│   │   │               ├── repository/
-│   │   │               │   └── FundingOpportunityRepository.java
-│   │   │               └── service/
-│   │   │                   └── FundingOpportunityService.java
-│   │   └── resources/
-│   │       ├── application.properties
-│   │       ├── data.sql
-│   │       ├── local.properties
-│   │       ├── scheme.sql
-│   │       ├── static/
-│   │       └── templates/
-│   └── test/
-│       ├── SpringBootExerciseApplicationTests.java
-│       └── java/
-│           └── com/
-│               └── fundingproject/
-│                   └── funding/
-│                       └── service/
-│                           └── FundingOpportunityServiceTest.java
-├── pom.xml
-├── mvnw
-├── mvnw.cmd
-├── README.md
-└── HELP.md
-```
