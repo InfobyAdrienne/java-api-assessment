@@ -4,7 +4,7 @@
 
 ### Purpose
 
-This API is part of a larger project where funders and business owners can manage and apply for available funding in a stress-free way. This specific project provides the backend service that allows organisations to store and manage information about available funding for small business owners. The stored information includes the provider, funding limits, industry focus, and status of the funding (e.g., whether applications are currently being accepted). Users can filter and retrieve opportunities based on specific criteria, while the system ensures records are kept up-to-date with automatic timestamps.
+This API provides a backend service that allows organisations to store and manage information about available funding for small business owners. The stored information includes the provider, funding limits, industry focus, and status of the funding (e.g., whether applications are currently being accepted). Users can filter and retrieve opportunities based on specific criteria, while the system ensures records are kept up-to-date with automatic timestamps.
 
 I chose to build this project after reading Grant Thornton research which outlined that 70% of small businesses expect that they’ll need to apply for additional funding in 2025 because they are struggling to secure the resources required to support their growth. This motivated me to create a system that streamlines the tracking and management of funding opportunities, helping organisations more efficiently identify, monitor, and apply for the funding they need to grow.
 
@@ -42,17 +42,12 @@ This Spring Boot API manages funding opportunities for various providers and ind
 | `/api/funding/{id}`            | DELETE | Delete a funding opportunity           |
 | `/api/funding/status/{status}` | GET    | Filter opportunities by funding status |
 
+This project uses the Spring Boot default port so an example `GET` call would be http://localhost:8080/api/funding
 
 Example queries to retrieve funding opportunities:
 ```
 getAllFundingOpportunities();
 getByFundingStatus(FundingStatus.PENDING);
-```
-
-REST API examples: 
-```
-GET /api/funding
-GET /api/funding?status=PENDING
 ```
 
 ## ⚒️ Using the API 
@@ -63,7 +58,7 @@ GET /api/funding?status=PENDING
 - Maven
 - MySQL
 
-One the repo has been cloned, follow the following steps:
+Once the repo has been cloned, follow the following steps:
 
 ### Local Setup
 
@@ -104,7 +99,7 @@ Optional: If you want to manage the schema manually, you can use the provided `s
 SOURCE /path/to/schema.sql;
 ```
 
-3. Insert sample data (optinal)
+3. Insert sample data (optional)
 
 If required running the file `data.sql` within sql will populate example records by using this command: 
 
@@ -116,7 +111,7 @@ The application can now query funding opportunities immediately.
 
 4. Verify the setup
 
-After setup, you can confirm the table is set up directly and has data (if populated per above) by running this SQL query:
+After setup, you can confirm the table is set up directly and has data (if populated per above) by running these SQL queries:
 
 ```
 USE funding_db;
@@ -132,4 +127,14 @@ Use the following command to start the application:
 
 ## 🧪 Testing
 
-In order to run the unit tests, use the the `mvn test` command.
+In order to run the unit tests, use the `mvn test` command. This will execute all tests in the project which currently only include the service level. 
+
+## 📚 Some learnings
+
+Common Issues with Database Setup
+
+- Empty tables after running data.sql: This happened because the industry_focus and funding_status enums in MySQL didn’t match the values in the Java enum. Ensuring both sides use the same exact values (e.g., TECH, HEALTHCARE, etc.) fixed the issue.
+
+- Table not appearing on first run: By default, Hibernate generates tables based on the entities. If the schema didn’t match expectations, using a schema.sql file or adjusting the spring.jpa.hibernate.ddl-auto property resolved it.
+
+- BINARY(16) ID confusion: Initially, inserting test data was tricky because BINARY(16) expects raw binary values, not plain strings. This meant I had to use CAST('1111111111111111' AS BINARY(16)) when seeding the database. To simplify testing, I adjusted my sample IDs to a format works cleanly the schema.
